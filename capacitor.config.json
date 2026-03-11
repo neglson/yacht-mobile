@@ -1,0 +1,9 @@
+{
+  "appId": "com.yacht.building",
+  "appName": "YachtMobile",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "url": "http://47.107.59.213:3003"
+  }
+}

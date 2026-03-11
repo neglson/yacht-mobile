@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">YachtMobile</string>
+    <string name="title_activity_main">YachtMobile</string>
+    <string name="package_name">com.yacht.building</string>
+    <string name="custom_url_scheme">com.yacht.building</string>
+</resources>
