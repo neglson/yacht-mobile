@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,19 +24,13 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+      - name: Grant execute permission for gradlew
+        working-directory: ./android
+        run: chmod +x gradlew
 
       - name: Build APK
         working-directory: ./android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -41,9 +38,3 @@ jobs:
           name: YachtMobile-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 7
-
-      - name: Download APK from Artifacts
-        run: |
-          echo ✅ 构建完成！
-          echo 请在 GitHub Actions 页面下载 APK 文件
-          echo 路径：Actions → 选择工作流 → Artifacts → YachtMobile-APK
